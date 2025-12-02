@@ -32,7 +32,7 @@ else:
     df["day"] = df["day"].astype(str)
     df["month"] = df["month"].astype(str)
 
-df["Occupied"] = df["Occupied"].replace({"Yes": "Да", "No": "Не"})
+df["Occupied"] = df["Occupied"].replace({"Yes": "Yes", "No": "No"})
 
 outlier_condition = (
     (df["day"] == "7")
@@ -67,32 +67,28 @@ plt.figure(figsize=(14, 6))
 # Plot for n1-pm10
 plt.subplot(1, 2, 1)
 sns.lineplot(data=grouped, x="hour", y="n1-pm10", hue="Occupied", marker="o")
-plt.title("Средна вредност на PM10 по час и зафатеност", **csfont)
-plt.ylabel("Средна вредност на PM10 (µg/m³)", **csfont)
-plt.xlabel("Час", **csfont)
-plt.legend(
-    title="Зафатеност", prop=legend_font, title_fontproperties=legend_font
-)
+plt.title("Mean PM10 Concentration by Hour and Occupancy", **csfont)
+plt.ylabel("Mean PM10 Concentration (µg/m³)", **csfont)
+plt.xlabel("Hour of Day", **csfont)
+plt.legend(title="Occupied", prop=legend_font, title_fontproperties=legend_font)
 
 # Plot for n1-pm25
 plt.subplot(1, 2, 2)
 sns.lineplot(data=grouped, x="hour", y="n1-pm25", hue="Occupied", marker="o")
-plt.title("Средна вредност на PM25 по час и зафатеност", **csfont)
-plt.ylabel("Средна вредност на PM25 (µg/m³)", **csfont)
-plt.xlabel("Час", **csfont)
-plt.legend(
-    title="Зафатеност", prop=legend_font, title_fontproperties=legend_font
-)
+plt.title("Mean PM25 Concentration by Hour and Occupancy", **csfont)
+plt.ylabel("Mean PM25 Concentration (µg/m³)", **csfont)
+plt.xlabel("Hour of Day", **csfont)
+plt.legend(title="Occupied", prop=legend_font, title_fontproperties=legend_font)
 
 plt.tight_layout()
-plt.savefig("visuelizations/people_effect_temporal_interaction.png")
+plt.savefig("visuelizations/(4)people_effect_temporal_interaction_eng.png")
 plt.show()
 
 # Print mean concentrations by hour and occupancy
 print("Mean PM Concentrations by Hour and Occupancy:\n")
 for hour in sorted(grouped["hour"].unique()):
     print(f"Hour {hour}:")
-    for occ in ["Не", "Да"]:
+    for occ in ["No", "Yes"]:
         subset = grouped[
             (grouped["hour"] == hour) & (grouped["Occupied"] == occ)
         ]

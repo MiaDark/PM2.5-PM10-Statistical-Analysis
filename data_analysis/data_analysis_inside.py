@@ -137,35 +137,43 @@ for data1, data2, label1, label2, description in comparisons:
 # Visualization: Sensor comparisons when Occupied=Да
 plt.figure(figsize=(12, 6))
 plt.subplot(2, 1, 1)
-sns.boxplot(data=df[df["Occupied"] == "Да"][["n1-pm10", "n2-pm10"]])
-plt.title("n1-pm10 наспроти n2-pm10 (Зафатено=Да)")
-plt.ylabel("Концентрација (µg/m³)")
-plt.xlabel("Сензор")
+sns.boxplot(
+    data=df[df["Occupied"] == "Да"][["n1-pm10", "n2-pm10"]].rename(
+        columns={"n1-pm10": "Sensor n1 (PM10)", "n2-pm10": "Sensor n2 (PM10)"}
+    )
+)
+plt.title("PM10 Comparison Between Sensor n1 and Sensor n2 (Room Occupied)")
+plt.ylabel("Concentration (µg/m³)")
+plt.xlabel("Sensor")
 
 plt.subplot(2, 1, 2)
 sns.boxplot(data=df[df["Occupied"] == "Да"][["n1-pm25", "n2-pm25"]])
-plt.title("n1-pm25 наспроти n2-pm25 (Зафатено=Да)")
-plt.ylabel("Концентрација (µg/m³)")
-plt.xlabel("Сензор")
+plt.title("PM25 Comparison Between Sensor n1 and Sensor n2 (Room Occupied)")
+plt.ylabel("Concentration (µg/m³)")
+plt.xlabel("Sensor")
 
 plt.tight_layout()
-plt.savefig("visuelizations/same_room_two_sensors.jpg")
+plt.savefig("visuelizations/(3)same_room_two_sensors_eng.jpg")
 plt.show()
 
 # Visualization: PM concentrations by occupancy
 plt.figure(figsize=(12, 6))
 plt.subplot(2, 1, 1)
 sns.boxplot(x="Occupied", y="n1-pm10", data=df)
-plt.title("Концентрација на PM10 според зафатеност")
-plt.ylabel("Концентрација (µg/m³)")
-plt.xlabel("Зафатеност")
+plt.title("PM10 Concentration by Room Occupancy")
+plt.ylabel("Concentration (µg/m³)")
+plt.xlabel("Occupied")
+plt.xticks(ticks=[0, 1], labels=["Yes", "No"])
 
 plt.subplot(2, 1, 2)
 sns.boxplot(x="Occupied", y="n1-pm25", data=df)
-plt.title("Концентрација на PM25 според зафатеност")
-plt.ylabel("Концентрација (µg/m³)")
-plt.xlabel("Зафатеност")
+plt.title("PM25 Concentration by Room Occupancy")
+plt.ylabel("Concentration (µg/m³)")
+plt.xlabel("Occupied")
+plt.xticks(ticks=[0, 1], labels=["Yes", "No"])
 
 plt.tight_layout()
-plt.savefig("visuelizations/occupied_non-occupied_01_07_removed_outliers.jpg")
+plt.savefig(
+    "visuelizations/(3)occupied_non-occupied_01_07_removed_outliers_eng.jpg"
+)
 plt.show()
