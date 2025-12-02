@@ -128,17 +128,31 @@ for data1, data2, label1, label2, description in comparisons:
 # Visualization
 plt.figure(figsize=(12, 6))
 plt.subplot(2, 1, 1)
-sns.boxplot(data=df[["Надворешен сензор (PM10)", "Внатрешен сензор (PM10)"]])
-plt.title("Споредба на PM10 (Надвор / Внатре)", **csfont)
-plt.ylabel("Концентрација (µg/m³)", **csfont)
-plt.xlabel("Сензор", **csfont)
+sns.boxplot(
+    data=df[["Надворешен сензор (PM10)", "Внатрешен сензор (PM10)"]].rename(
+        columns={
+            "Надворешен сензор (PM10)": "Outdoor Sensor (PM10)",
+            "Внатрешен сензор (PM10)": "Indoor Sensor (PM10)",
+        }
+    )
+)
+plt.title("PM10 Comprarison (Outdoor / Indoor)", **csfont)
+plt.ylabel("Concentration (µg/m³)", **csfont)
+plt.xlabel("Sensor", **csfont)
 
 plt.subplot(2, 1, 2)
-sns.boxplot(data=df[["Надворешен сензор (PM2.5)", "Внатрешен сензор (PM2.5)"]])
-plt.title("Споредба на PM25 (Надвор / Внатре)", **csfont)
-plt.ylabel("Концентрација (µg/m³)", **csfont)
-plt.xlabel("Сензор", **csfont)
+sns.boxplot(
+    data=df[["Надворешен сензор (PM2.5)", "Внатрешен сензор (PM2.5)"]].rename(
+        columns={
+            "Надворешен сензор (PM2.5)": "Outdoor Sensor (PM2.5)",
+            "Внатрешен сензор (PM2.5)": "Indoor Sensor (PM2.5)",
+        }
+    )
+)
+plt.title("PM25 Comprarison (Outdoor / Indoor)", **csfont)
+plt.ylabel("Concentration (µg/m³)", **csfont)
+plt.xlabel("Sensor", **csfont)
 
 plt.tight_layout()
-plt.savefig("inside_vs_outside_pm10_pm25.png")
+plt.savefig("(2)inside_vs_outside_pm10_pm25_eng.png")
 plt.show()
